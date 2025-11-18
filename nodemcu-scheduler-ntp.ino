@@ -14,10 +14,10 @@ const char* password = "YourWifiPASSWORD";
 const long utcOffsetInSeconds = 7 * 3600; 
 const char* ntpServer = "pool.ntp.org";
 
-const int ON_HOUR = 12;
-const int ON_MINUTE = 0;
+const int ON_HOUR = 17;
+const int ON_MINUTE = 15;
 
-const int OFF_HOUR = 11;
+const int OFF_HOUR = 6;
 const int OFF_MINUTE = 0;
 
 // Init Server & NTP
@@ -193,9 +193,7 @@ void checkScheduler() {
         shouldBeOn = ledState; 
     }
   }
-  Serial.print(timeClient.getFormattedTime());
-  Serial.print(" WIB | ShouldBeOn: "); Serial.print(shouldBeOn ? "TRUE" : "FALSE");
-  Serial.print(" | CurrentState: "); Serial.println(ledState ? "ON" : "OFF");
+  Serial.println(timeClient.getFormattedTime());
 
   if (shouldBeOn != ledState) {
     if (shouldBeOn) {
@@ -205,11 +203,6 @@ void checkScheduler() {
       digitalWrite(RELAY_PIN, HIGH);
       ledState = false;
     }
-  }
-  
-  if (timeClient.getSeconds() < 2 && currentMinute % 2 != 0) {
-      Serial.print("Time Check (WIB): ");
-      Serial.println(timeClient.getFormattedTime());
   }
   delay(1000); 
 }
@@ -222,12 +215,12 @@ void setup() {
   ledState = false;
 
   WiFi.begin(ssid, password);
-  Serial.print("Menghubungkan ke "); Serial.println(ssid);
+  Serial.print("Connecting... "); Serial.println(ssid);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nWiFi terhubung!");
+  Serial.println("\nWiFi connected!");
   Serial.print("IP: "); Serial.println(WiFi.localIP());
 
   timeClient.begin();
@@ -236,7 +229,7 @@ void setup() {
 
   server.on("/", handleRoot);
   server.begin();
-  Serial.println("Server HTTP dimulai.");
+  Serial.println("HTTP Server started.");
 }
 
 void loop() {
