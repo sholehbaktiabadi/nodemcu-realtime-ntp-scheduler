@@ -56,4 +56,8 @@ const int OFF_MINUTE = 0;
 ## 📄 Monitor
 
 > access the nodemcu IP address to monitor the scheduler status by check the serial monitor on the Arduino with baud 115200
+> 
+<img width="527" height="550" alt="Screenshot from 2025-11-18 12-44-47" src="https://github.com/user-attachments/assets/d4a6de9d-7910-4210-8275-d360e5d62c1f" />
+
+
 
